@@ -7,11 +7,15 @@ from db.models import User
 from db.session import get_db
 from core.security import hash_password, verify_password
 from utils.user import save_user_to_db
+from core.security import SECRET_KEY, ALGORITHM
 
 router = APIRouter(prefix="/auth")
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
-def register(user: UserCreate, db: Session = Depends(get_db)):
+def register(
+    user: UserCreate, 
+    db: Session = Depends(get_db)
+):
 
     existing_user = db.query(User).filter(User.email == user.email).first()
 
@@ -33,7 +37,10 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     
 
 @router.post("/login")
-def login(user: UserCreate, db: Session = Depends(get_db)):
+def login(
+    user: UserCreate, 
+    db: Session = Depends(get_db)
+):
 
     db_user = db.query(User).filter(
         User.email == user.email
@@ -46,8 +53,8 @@ def login(user: UserCreate, db: Session = Depends(get_db)):
         )
     
     token = jwt.encode({"userId": str(db_user.id)},
-                       key=os.getenv("SECRET_KEY"),
-                       algorithm="HS256")
+                       key=SECRET_KEY,
+                       algorithm=ALGORITHM)
     
     return {"Message": "User logged in successfully",
             "access_token": token,

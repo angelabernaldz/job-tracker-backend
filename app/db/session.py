@@ -5,9 +5,6 @@ from db.models import Base
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@fastapi_db:5432/job_tracker_db")
 
-print(">>> DATABASE_URL:", DATABASE_URL)
-
-
 engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
