@@ -84,8 +84,7 @@ def update_job(
     job = (
         db.query(JobApplication)
         .filter(JobApplication.id == job_id,
-                JobApplication.user_id == current_user.id
-        )
+                JobApplication.user_id == current_user.id)
         .first()
     )
 

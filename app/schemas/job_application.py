@@ -58,4 +58,4 @@ class JobApplicationResponse(BaseModel):
     updated_at: datetime | None = None
 
     class Config:
-        orm_attributes = True
+        orm_mode = True
