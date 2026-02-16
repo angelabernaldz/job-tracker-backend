@@ -42,4 +42,4 @@ class InterviewResponse(InterviewBase):
     stages: List[InterviewStageResponse] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

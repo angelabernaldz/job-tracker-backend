@@ -58,7 +58,12 @@ def login(
     
     return {"Message": "User logged in successfully",
             "access_token": token,
-            "token_type": "bearer"}
+            "token_type": "bearer", 
+            "user": {
+                "id": db_user.id,
+                "email": db_user.email,
+                "created_at": db_user.created_at
+            }}
 
 
 

@@ -28,6 +28,8 @@ class JobApplication(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
+    user = relationship("User", back_populates="job_applications")  
+
     company = Column(String, nullable=False)
     position = Column(String, nullable=False)
     status = Column(String, default="applied", nullable=False)
@@ -59,7 +61,7 @@ class Interview(Base):
     job_id = Column(Integer, ForeignKey("job_applications.id", ondelete="CASCADE"))
     stages = relationship("InterviewStage", back_populates="interview", cascade="all, delete-orphan")
     
-    job = relationship("JobApplication", back_populates="interview")
+    job = relationship("JobApplication", back_populates="interviews")
 
 
 class InterviewStage(Base):
